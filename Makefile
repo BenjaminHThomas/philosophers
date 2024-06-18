@@ -6,7 +6,7 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/18 15:03:09 by bthomas          ###   ########.fr        #
+#    Updated: 2024/06/18 15:45:52 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,15 @@ NAME	= philo
 
 SRCDIR	= srcs
 OBJDIR	= objs
-CFILES	= main.c
+CFILES	= main.c \
+		  validate_input.c \
+		  init.c \
+		  cleanup.c
 SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -pthread
 INCS	= -I./includes
 
 all: $(OBJDIR) $(NAME)
@@ -40,7 +43,7 @@ clean:
 
 fclean: clean
 	@echo "Removing philo..."
-	@rm $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
