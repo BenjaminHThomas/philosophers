@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 15:47:07 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/18 16:28:13 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# define MAXUINT 4294967295
 
 typedef struct s_philo
 {
@@ -30,11 +31,11 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int		num_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_eats_each;
+	unsigned int	num_philo;
+	unsigned int	time_to_die;
+	unsigned int	time_to_eat;
+	unsigned int	time_to_sleep;
+	unsigned int	num_eats_each;
 	t_philo	*head;
 }	t_data;
 

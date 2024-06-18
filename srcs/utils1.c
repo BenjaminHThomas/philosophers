@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 16:22:37 by bthomas          ###   ########.fr       */
+/*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
+/*   Updated: 2024/06/18 16:28:22 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-t_philo	*new_philo(int idx)
+unsigned int	ft_atoi(const char *s)
 {
-	t_philo	*philo;
+	int			i;
+	unsigned	res;
 
-	philo = malloc(sizeof(t_philo));
-	if (!philo)
-		return (NULL);
-	philo->idx = idx;
-	philo->fork = 0;
-	pthread_mutex_init(&philo->mutex, NULL);
-	philo->next = NULL;
-	return (philo);
-}
-
-int	init(int ac, char **av, t_data *data)
-{
-	long	temp;
-
-	memset(data, 0, sizeof(data));
-	data->head = new_philo(0);
-	if (!data->head)
-		return (1);
-	return (0);
+	i = 0;
+	res = 0;
+	while (s && (s[i] == 32 || (s[i] >= 9 && s[i] <= 13)))
+		i++;
+	if (s && s[i] == '+')
+		i++;
+	while (s && (s[i] >= '0' && s[i] <= '9'))
+	{
+		res *= 10;
+		res += s[i] - '0';
+		i++;
+	}
+	return (res);
 }
