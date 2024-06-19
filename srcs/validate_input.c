@@ -14,8 +14,8 @@
 
 int	num_too_big(const char *s)
 {
-	int			i;
-	unsigned	res;
+	int				i;
+	unsigned int	res;
 
 	i = 0;
 	res = 0;
@@ -25,7 +25,7 @@ int	num_too_big(const char *s)
 		i++;
 	while (s && (s[i] >= '0' && s[i] <= '9'))
 	{
-		if (res > MAXUINT/10)
+		if (res > MAXUINT / 10)
 			return (1);
 		res *= 10;
 		res += s[i] - '0';
@@ -45,7 +45,7 @@ int	non_num(const char *s)
 	return (0);
 }
 
-int	valid_input(int	ac, char **av)
+int	valid_input(int ac, char **av)
 {
 	int	i;
 

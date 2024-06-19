@@ -19,20 +19,37 @@ t_philo	*new_philo(int idx)
 	philo = malloc(sizeof(t_philo));
 	if (!philo)
 		return (NULL);
+	memset(philo, 0, sizeof(philo));
 	philo->idx = idx;
-	philo->fork = 0;
-	pthread_mutex_init(&philo->mutex, NULL);
-	philo->next = NULL;
+	pthread_mutex_init(&philo->fork, NULL);
 	return (philo);
 }
 
 int	init(int ac, char **av, t_data *data)
 {
 	long	temp;
+	t_philo	*next;
+	int		i;
 
 	memset(data, 0, sizeof(data));
+	data->num_philo = ft_utoi(av[1]);
+	data->time_to_die = ft_utoi(av[2]);
+	data->time_to_eat = ft_utoi(av[3]);
+	data->time_to_sleep = ft_utoi(av[4]);
+	if (ac == 6)
+		data->num_eats_each = ft_utoi(av[5]);
 	data->head = new_philo(0);
 	if (!data->head)
 		return (1);
+	i = 1;
+	next = data->head;
+	while (i < data->num_philo)
+	{
+		next = new_philo(i);
+		if (!next)
+			return (1);
+		ft_add_philo(&data->head, next);
+		i++;
+	}
 	return (0);
 }

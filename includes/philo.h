@@ -24,8 +24,11 @@
 typedef struct s_philo
 {
 	int					idx;
-	int					fork;
-	pthread_mutex_t		mutex;
+	int					ntimes_eaten;
+	int					time_till_death;
+	int					dur_eating;
+	int					dur_sleeping;
+	pthread_mutex_t		fork;
 	struct s_philo		*next;
 }	t_philo;
 
@@ -36,11 +39,13 @@ typedef struct s_data
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	unsigned int	num_eats_each;
-	t_philo	*head;
+	t_philo			*head;
 }	t_data;
 
-int	valid_input(int	ac, char **av);
-int	cleanup(t_data *data);
-int	init(int ac, char **av, t_data *data);
+int				valid_input(int ac, char **av);
+int				cleanup(t_data *data);
+int				init(int ac, char **av, t_data *data);
+unsigned int	ft_utoi(char *s);
+void			ft_add_philo(t_philo **head, t_philo *new);
 
 #endif

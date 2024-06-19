@@ -12,10 +12,10 @@
 
 #include "philo.h"
 
-unsigned int	ft_atoi(const char *s)
+unsigned int	ft_utoi(const char *s)
 {
-	int			i;
-	unsigned	res;
+	int				i;
+	unsigned int	res;
 
 	i = 0;
 	res = 0;

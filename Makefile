@@ -17,7 +17,8 @@ OBJDIR	= objs
 CFILES	= main.c \
 		  validate_input.c \
 		  init.c \
-		  cleanup.c
+		  cleanup.c \
+		  utils1.c
 SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
