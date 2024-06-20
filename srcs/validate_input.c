@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:32 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 16:32:43 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:55:58 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	num_too_big(const char *s)
 		i++;
 	while (s && (s[i] >= '0' && s[i] <= '9'))
 	{
-		if (res > MAXUINT / 10)
-			return (1);
 		res *= 10;
 		res += s[i] - '0';
+		if (res >= MAXINT / 10)
+			return (1);
 		i++;
 	}
 	return (0);
@@ -50,9 +50,13 @@ int	valid_input(int ac, char **av)
 	int	i;
 
 	i = 1;
+	if (ft_utoi(av[1]) > 200)
+		return (0);
 	while (i < ac)
 	{
 		if (non_num(av[i]))
+			return (0);
+		if (num_too_big(av[i]))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:03 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 15:42:28 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:53:50 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	cleanup(t_data *data)
 {
-	(void)data;
+	if (data->head)
+		ft_clear_philos(data);
 	return (0);
 }

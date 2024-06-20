@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 16:28:13 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 11:55:48 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# define MAXINT 2147483647
 # define MAXUINT 4294967295
 
 typedef struct s_philo
@@ -47,5 +48,6 @@ int				cleanup(t_data *data);
 int				init(int ac, char **av, t_data *data);
 unsigned int	ft_utoi(char *s);
 void			ft_add_philo(t_philo **head, t_philo *new);
+void			ft_clear_philos(t_data *data);
 
 #endif

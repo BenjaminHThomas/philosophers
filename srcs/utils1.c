@@ -6,13 +6,13 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/18 16:28:22 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 12:03:45 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned int	ft_utoi(const char *s)
+unsigned int	ft_utoi(char *s)
 {
 	int				i;
 	unsigned int	res;

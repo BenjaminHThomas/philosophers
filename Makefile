@@ -6,7 +6,7 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/18 15:45:52 by bthomas          ###   ########.fr        #
+#    Updated: 2024/06/20 12:04:03 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCDIR	= srcs
 OBJDIR	= objs
 CFILES	= main.c \
 		  validate_input.c \
+		  lst_funcs.c \
 		  init.c \
 		  cleanup.c \
 		  utils1.c
