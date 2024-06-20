@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 11:55:48 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:28:52 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,25 @@
 # define MAXINT 2147483647
 # define MAXUINT 4294967295
 
-typedef struct s_philo
-{
-	int					idx;
-	int					ntimes_eaten;
-	int					time_till_death;
-	int					dur_eating;
-	int					dur_sleeping;
-	pthread_mutex_t		fork;
-	struct s_philo		*next;
-}	t_philo;
-
 typedef struct s_data
 {
-	unsigned int	num_philo;
-	unsigned int	time_to_die;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
-	unsigned int	num_eats_each;
-	t_philo			*head;
+	unsigned int		num_philo;
+	unsigned int		time_to_die;
+	unsigned int		time_to_eat;
+	unsigned int		time_to_sleep;
+	unsigned int		num_eats_each;
+	pthread_mutex_t		forks[200];
+	long				ts_last_ate[200];
+	long				start_time;
+	int					dead_philo;
 }	t_data;
 
 int				valid_input(int ac, char **av);
-int				cleanup(t_data *data);
+void			cleanup(t_data *data);
 int				init(int ac, char **av, t_data *data);
 unsigned int	ft_utoi(char *s);
-void			ft_add_philo(t_philo **head, t_philo *new);
-void			ft_clear_philos(t_data *data);
+int				ft_strlen(char *s);
+char			*ft_itoa(int n);
+long			get_milisecs(struct timeval *tv);
 
 #endif

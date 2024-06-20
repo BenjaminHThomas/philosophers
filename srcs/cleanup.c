@@ -6,15 +6,13 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:03 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 11:53:50 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 17:20:54 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	cleanup(t_data *data)
+void	cleanup(t_data *data)
 {
-	if (data->head)
-		ft_clear_philos(data);
-	return (0);
+	(void)data;
 }

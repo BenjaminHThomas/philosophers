@@ -6,11 +6,21 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 12:03:45 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:29:27 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_strlen(char *s)
+{
+	int	len;
+
+	len = 0;
+	while (s && s[len])
+		len++;
+	return (len);
+}
 
 unsigned int	ft_utoi(char *s)
 {
@@ -30,4 +40,9 @@ unsigned int	ft_utoi(char *s)
 		i++;
 	}
 	return (res);
+}
+
+long	get_milisecs(struct timeval *tv)
+{
+	return ((tv->tv_sec * 1000) + (tv->tv_usec / 1000));
 }
