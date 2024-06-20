@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:34:07 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:47:10 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,12 @@ unsigned int	ft_utoi(char *s)
 long	get_milisecs(struct timeval *tv)
 {
 	return ((tv->tv_sec * 1000) + (tv->tv_usec / 1000));
+}
+
+long	get_timestamp(t_data *data)
+{
+	struct timeval	now;
+
+	gettimeofday(&now, NULL);
+	return (data->start_time - get_milisecs(&now));
 }

@@ -6,19 +6,11 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:35:19 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:50:02 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long	get_timestamp(t_data *data)
-{
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
-	return (data->start_time - get_milisecs(&now));
-}
 
 int	is_dead(t_data *data, int idx)
 {
@@ -38,17 +30,17 @@ static void	eat(t_data *data, int idx)
 
 	left_fork = idx;
 	right_fork = (idx + 1) % data->num_philo;
-	pthread_mutex_lock(data->forks[left_fork]);
-	pthread_mutex_lock(data->forks[right_fork]);
+	pthread_mutex_lock(&data->forks[left_fork]);
+	pthread_mutex_lock(&data->forks[right_fork]);
 	printf("%ld %d is eating\n", get_timestamp(data), idx);
 	usleep(data->time_to_eat * 1000);
-	pthread_mutex_unlock(data->forks[left_fork]);
-	pthread_mutex_unlock(data->forks[right_fork]);
+	pthread_mutex_unlock(&data->forks[left_fork]);
+	pthread_mutex_unlock(&data->forks[right_fork]);
 }
 
 int	*philo(t_data *data, int idx)
 {
-	int		num_eaten;
+	unsigned int	num_eaten;
 
 	num_eaten = 0;
 	while (1)
@@ -59,7 +51,7 @@ int	*philo(t_data *data, int idx)
 		num_eaten++;
 		printf("%ld %d is sleeping\n", get_timestamp(data), idx);
 		usleep(data->time_to_sleep * 1000);
-		if (data->num_eats_each && data->num_eats_each == times_eaten)
+		if (data->num_eats_each && data->num_eats_each == num_eaten)
 			break ;
 	}
 	return (0);
