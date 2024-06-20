@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:28:52 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:33:57 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void			cleanup(t_data *data);
 int				init(int ac, char **av, t_data *data);
 unsigned int	ft_utoi(char *s);
 int				ft_strlen(char *s);
-char			*ft_itoa(int n);
 long			get_milisecs(struct timeval *tv);
+long			get_timestamp(t_data *data);
+int				is_dead(t_data *data, int idx);
 
 #endif

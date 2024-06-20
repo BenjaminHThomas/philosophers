@@ -6,7 +6,7 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/20 13:16:47 by bthomas          ###   ########.fr        #
+#    Updated: 2024/06/20 18:34:48 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ CFILES	= main.c \
 		  validate_input.c \
 		  init.c \
 		  cleanup.c \
-		  utils1.c \
-		  ft_itoa.c
+		  utils1.c
 SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 

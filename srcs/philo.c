@@ -6,21 +6,21 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:28:28 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/20 18:35:19 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static long	get_timestamp(t_data *data)
+long	get_timestamp(t_data *data)
 {
 	struct timeval	now;
 
 	gettimeofday(&now, NULL);
-	return(data->start_time - get_milisecs(&now));
+	return (data->start_time - get_milisecs(&now));
 }
 
-static int	is_dead(t_data *data, int idx)
+int	is_dead(t_data *data, int idx)
 {
 	if (get_timestamp(data) - data->ts_last_ate[idx] > data->time_to_die)
 	{
@@ -35,7 +35,7 @@ static void	eat(t_data *data, int idx)
 {
 	int	left_fork;
 	int	right_fork;
-	
+
 	left_fork = idx;
 	right_fork = (idx + 1) % data->num_philo;
 	pthread_mutex_lock(data->forks[left_fork]);
@@ -61,8 +61,6 @@ int	*philo(t_data *data, int idx)
 		usleep(data->time_to_sleep * 1000);
 		if (data->num_eats_each && data->num_eats_each == times_eaten)
 			break ;
-		if (is_dead(data, ts_last_ate))
-			return (1);
 	}
 	return (0);
 }
