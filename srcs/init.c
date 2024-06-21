@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:28:20 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/21 10:31:24 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	init(int ac, char **av, t_data *data)
 	else
 		data->num_eats_each = 0;
 	data->dead_philo = 0;
+	memset(data->can_eat, 0, sizeof(data->can_eat));
+	memset(data->is_sleeping, 0, sizeof(data->is_sleeping));
 	gettimeofday(&tv, NULL);
 	data->start_time = get_milisecs(&tv);
 	return (0);

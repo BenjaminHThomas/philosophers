@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 18:48:39 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/21 10:34:09 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_data
 	unsigned int		time_to_sleep;
 	unsigned int		num_eats_each;
 	pthread_mutex_t		forks[200];
+	int					is_sleeping[200];
+	int					can_eat[200];
 	long				ts_last_ate[200];
 	long				start_time;
 	int					dead_philo;
@@ -41,6 +43,5 @@ int				init(int ac, char **av, t_data *data);
 unsigned int	ft_utoi(char *s);
 long			get_milisecs(struct timeval *tv);
 long			get_timestamp(t_data *data);
-int				is_dead(t_data *data, int idx);
 
 #endif
