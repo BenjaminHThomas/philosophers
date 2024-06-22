@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 16:44:10 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 17:06:14 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	create_threads(t_data *data)
 	while (i < data->num_philo)
 	{
 		if (pthread_create(&data->threads[i], NULL,
-					 philo, &data->philo_data[i]) != 0)
+				philo, &data->philo_data[i]) != 0)
 			return (1);
 		i++;
 	}

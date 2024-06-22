@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:37:26 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 17:05:01 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 17:06:49 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*waiter(void *waiter_data)
 	int		hungriest;
 
 	data = (t_data *)waiter_data;
-	while (data->dead_philo == 0 
+	while (data->dead_philo == 0
 		&& data->finished_eating != data->num_philo)
 	{
 		hungriest = get_hungriest(data);

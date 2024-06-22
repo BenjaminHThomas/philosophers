@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 16:56:07 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 17:06:37 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	*philo(void *philo_data)
 
 	num_eaten = 0;
 	idx = ((struct s_philo *)philo_data)->idx;
-	data =((struct s_philo *)philo_data)->data;
+	data = ((struct s_philo *)philo_data)->data;
 	while (data->dead_philo == 0)
 	{
 		printf("%ld %d is thinking\n", get_timestamp(data), idx);
