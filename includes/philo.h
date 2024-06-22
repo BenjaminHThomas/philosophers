@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 12:26:25 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 16:16:31 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # define MAXINT 2147483647
-# define MAXUINT 4294967295
+# define MININT -2147483648
 
 struct s_philo
 {
@@ -43,6 +43,7 @@ typedef struct s_data
 	int					is_sleeping[200];
 	int					can_eat[200];
 	long				ts_last_ate[200];
+	unsigned int		num_eaten[200];
 	long				start_time;
 	int					dead_philo;
 	unsigned int		finished_eating;
