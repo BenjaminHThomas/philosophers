@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/21 10:33:53 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 12:25:05 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,52 +40,9 @@ long	get_milisecs(struct timeval *tv)
 long	get_timestamp(t_data *data)
 {
 	struct timeval	now;
+	long			currtime;
 
 	gettimeofday(&now, NULL);
-	return (data->start_time - get_milisecs(&now));
-}
-
-int	get_hungriest(t_data *data)
-{
-	unsigned int		i;
-	unsigned int		max;
-	long				max_val;
-
-	i = 0;
-	max_val = 0;
-	while (i < data->num_philo)
-	{
-		if (data->ts_last_ate[i] > max_val)
-		{
-			max = i;
-			max_val = data->ts_last_ate[i];
-		}
-		i++;
-	}
-	return (max);
-}
-
-int	get_next_hungriest(t_data *data, int bigger_idx)
-{
-	long				curr_val;
-	long				prev_max;
-	long				new_max;
-	unsigned int		i;
-	unsigned int		max;
-
-	prev_max = data->ts_last_ate[bigger_idx];
-	i = 0;
-	max = 0;
-	new_max = 0;
-	while (i < data->num_philo)
-	{
-		curr_val = data->ts_last_ate[i];
-		if (curr_val < prev_max && curr_val > new_max)
-		{
-			new_max = curr_val;
-			max = i;
-		}
-		i++;
-	}
-	return (max);
+	currtime = get_milisecs(&now);
+	return (currtime - data->start_time);
 }

@@ -6,12 +6,51 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/21 10:31:24 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 12:41:51 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
+
+int	create_threads(t_data *data)
+{
+	unsigned int		i;
+
+	i = 0;
+	while (i < data->num_philo)
+	{
+		data->philo_data[i].data = data;
+		data->philo_data[i].idx = i;
+		i++;
+	}
+	i = 0;
+	while (i < data->num_philo)
+	{
+		if (pthread_create(&data->threads[i], NULL,
+					 philo, &data->philo_data[i]) != 0)
+			return (1);
+		i++;
+	}
+	if (pthread_create(&data->waiter, NULL, waiter, data) != 0)
+		return (1);
+	return (0);
+}
+
+int	init_mutexs(t_data *data)
+{
+	unsigned int	i;
+
+	if (pthread_mutex_init(&data->data_mutex, NULL) != 0)
+		return (1);
+	i = 0;
+	while (i < data->num_philo)
+	{
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	init(int ac, char **av, t_data *data)
 {
@@ -26,9 +65,14 @@ int	init(int ac, char **av, t_data *data)
 	else
 		data->num_eats_each = 0;
 	data->dead_philo = 0;
+	data->finished_eating = 0;
+	memset(data->ts_last_ate, 0, sizeof(data->ts_last_ate));
 	memset(data->can_eat, 0, sizeof(data->can_eat));
 	memset(data->is_sleeping, 0, sizeof(data->is_sleeping));
+	memset(data->philo_data, 0, sizeof(data->philo_data));
+	if (init_mutexs(data))
+		return (1);
 	gettimeofday(&tv, NULL);
 	data->start_time = get_milisecs(&tv);
-	return (0);
+	return (create_threads(data));
 }

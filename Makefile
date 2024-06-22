@@ -6,7 +6,7 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/20 18:48:49 by bthomas          ###   ########.fr        #
+#    Updated: 2024/06/22 12:09:24 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ CFILES	= main.c \
 		  init.c \
 		  cleanup.c \
 		  utils1.c \
-		  philo.c
+		  philo.c \
+		  waiter.c
 SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:03 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 17:20:54 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 12:37:00 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,13 @@
 
 void	cleanup(t_data *data)
 {
-	(void)data;
+	unsigned int	i;
+
+	pthread_mutex_destroy(&data->data_mutex);
+	i = 0;
+	while (i < data->num_philo)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 }
