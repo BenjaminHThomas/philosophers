@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 12:25:05 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:21:54 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,20 @@ long	get_timestamp(t_data *data)
 	gettimeofday(&now, NULL);
 	currtime = get_milisecs(&now);
 	return (currtime - data->start_time);
+}
+
+int	all_finished(t_data *data)
+{
+	unsigned int	i;
+
+	if (!data->num_eats_each)
+		return (0);
+	i = 0;
+	while (i < data->num_philo)
+	{
+		if (data->num_eaten[i] != data->num_eats_each)
+			return (0);
+		i++;
+	}
+	return (1);
 }

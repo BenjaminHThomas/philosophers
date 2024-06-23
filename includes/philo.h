@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 17:25:07 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:22:05 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# define MAXUINT 4294967295
 # define MAXINT 2147483647
 # define MININT -2147483648
 
@@ -48,7 +49,6 @@ typedef struct s_data
 	unsigned int		num_eaten[200];
 	long				start_time;
 	int					dead_philo;
-	unsigned int		finished_eating;
 }	t_data;
 
 int				valid_input(int ac, char **av);
@@ -59,5 +59,6 @@ long			get_milisecs(struct timeval *tv);
 long			get_timestamp(t_data *data);
 void			*philo(void *philo_data);
 void			*waiter(void *waiter_data);
+int				all_finished(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 17:49:44 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:25:09 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	init(int ac, char **av, t_data *data)
 	else
 		data->num_eats_each = 0;
 	data->dead_philo = 0;
-	data->finished_eating = 0;
 	data->data_mutex_init = 0;
+	memset(data->num_eaten, 0, sizeof(data->num_eaten));
 	memset(data->fork_mutex_init, 0, sizeof(data->fork_mutex_init));
 	memset(data->ts_last_ate, 0, sizeof(data->ts_last_ate));
 	memset(data->can_eat, 0, sizeof(data->can_eat));

@@ -6,11 +6,23 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:37:26 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 18:58:11 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/23 12:34:32 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	neighbours_can_eat(unsigned int i, t_data *data)
+{
+	unsigned int	left;
+	unsigned int	right;
+
+	left = (i + data->num_philo - 1) % data->num_philo;
+	right = (i + 1) % data->num_philo;
+	if (data->can_eat[left] || data->can_eat[right])
+		return (1);
+	return (0);
+}
 
 static int	get_hungriest(t_data *data)
 {
@@ -25,8 +37,7 @@ static int	get_hungriest(t_data *data)
 	while (i < data->num_philo)
 	{
 		if (!data->is_sleeping[i] && !data->can_eat[i] &&
-			!data->can_eat[(i + 1) % data->num_philo] &&
-			!data->can_eat[(i + data->num_philo - 1) % data->num_philo] &&
+			!neighbours_can_eat(i, data) &&
 			data->ts_last_ate[i] < min_val)
 		{
 			hungriest = i;
@@ -48,8 +59,7 @@ void	*waiter(void *waiter_data)
 	data = (t_data *)waiter_data;
 	if (data->num_philo == 1)
 		return (NULL);
-	while (data->dead_philo == 0
-		&& data->finished_eating != data->num_philo)
+	while (!data->dead_philo && !all_finished(data))
 	{
 		hungriest = get_hungriest(data);
 		if (hungriest != -1)
@@ -58,7 +68,7 @@ void	*waiter(void *waiter_data)
 			data->can_eat[hungriest] = 1;
 			pthread_mutex_unlock(&data->data_mutex);
 		}
-		usleep(10000);
+		usleep(1500);
 	}
 	return (NULL);
 }
