@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 17:06:14 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 17:49:44 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ int	init_mutexs(t_data *data)
 
 	if (pthread_mutex_init(&data->data_mutex, NULL) != 0)
 		return (1);
+	data->data_mutex_init = 1;
 	i = 0;
 	while (i < data->num_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (1);
+		data->fork_mutex_init[i] = 1;
 		i++;
 	}
 	return (0);
@@ -66,6 +68,8 @@ int	init(int ac, char **av, t_data *data)
 		data->num_eats_each = 0;
 	data->dead_philo = 0;
 	data->finished_eating = 0;
+	data->data_mutex_init = 0;
+	memset(data->fork_mutex_init, 0, sizeof(data->fork_mutex_init));
 	memset(data->ts_last_ate, 0, sizeof(data->ts_last_ate));
 	memset(data->can_eat, 0, sizeof(data->can_eat));
 	memset(data->is_sleeping, 0, sizeof(data->is_sleeping));

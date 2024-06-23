@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 17:06:37 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 18:59:08 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	lock_forks(t_data *data, int left_fork, int right_fork, int idx)
 
 static int	is_dead(t_data *data, int idx)
 {
-	if (get_timestamp(data) - data->ts_last_ate[idx] > data->time_to_die)
+	if (get_timestamp(data) - data->ts_last_ate[idx] >= data->time_to_die)
 	{
 		printf("%ld %d is dead\n", get_timestamp(data), idx);
 		data->dead_philo = 1;
@@ -80,11 +80,11 @@ void	*philo(void *philo_data)
 	while (data->dead_philo == 0)
 	{
 		printf("%ld %d is thinking\n", get_timestamp(data), idx);
-		while (data->can_eat[idx] == 0)
+		while (data->can_eat[idx] == 0 && data->dead_philo == 0)
 		{
 			if (is_dead(data, idx))
 				break ;
-			usleep(400);
+			usleep(500);
 		}
 		eat(data, idx, &num_eaten);
 		sleep_philo(data, idx);

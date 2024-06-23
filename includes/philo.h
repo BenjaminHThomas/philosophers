@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 16:16:31 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/22 17:25:07 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ struct s_philo
 typedef struct s_data
 {
 	pthread_mutex_t		data_mutex;
+	int					data_mutex_init;
 	unsigned int		num_philo;
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
 	unsigned int		num_eats_each;
 	pthread_mutex_t		forks[200];
+	int					fork_mutex_init[200];
 	pthread_t			threads[200];
 	pthread_t			waiter;
 	struct s_philo		philo_data[200];

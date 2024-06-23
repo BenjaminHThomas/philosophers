@@ -6,7 +6,7 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/22 12:09:24 by bthomas          ###   ########.fr        #
+#    Updated: 2024/06/22 17:31:54 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -pthread
+CFLAGS	= -Wall -Werror -Wextra -pthread -g3
 INCS	= -I./includes
 
 all: $(OBJDIR) $(NAME)
