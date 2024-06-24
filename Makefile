@@ -12,7 +12,7 @@
 
 NAME	= philo
 
-SRCDIR	= srcs
+SRCDIR	= src
 OBJDIR	= objs
 CFILES	= main.c \
 		  validate_input.c \
@@ -26,7 +26,7 @@ OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra -pthread -g3
-INCS	= -I./includes
+INCS	= -I./include
 
 all: $(OBJDIR) $(NAME)
 	@echo "Making philo..."
