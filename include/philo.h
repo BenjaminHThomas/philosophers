@@ -59,6 +59,7 @@ long			get_milisecs(struct timeval *tv);
 long			get_timestamp(t_data *data);
 void			*philo(void *philo_data);
 void			*waiter(void *waiter_data);
+int				is_finished(t_data *data, int idx);
 int				all_finished(t_data *data);
 
 #endif

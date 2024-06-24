@@ -58,6 +58,7 @@ int	init(int ac, char **av, t_data *data)
 {
 	struct timeval	tv;
 
+	memset(data, 0, sizeof(t_data));
 	data->num_philo = ft_utoi(av[1]);
 	data->time_to_die = ft_utoi(av[2]);
 	data->time_to_eat = ft_utoi(av[3]);
@@ -66,14 +67,6 @@ int	init(int ac, char **av, t_data *data)
 		data->num_eats_each = ft_utoi(av[5]);
 	else
 		data->num_eats_each = 0;
-	data->dead_philo = 0;
-	data->data_mutex_init = 0;
-	memset(data->num_eaten, 0, sizeof(data->num_eaten));
-	memset(data->fork_mutex_init, 0, sizeof(data->fork_mutex_init));
-	memset(data->ts_last_ate, 0, sizeof(data->ts_last_ate));
-	memset(data->can_eat, 0, sizeof(data->can_eat));
-	memset(data->is_sleeping, 0, sizeof(data->is_sleeping));
-	memset(data->philo_data, 0, sizeof(data->philo_data));
 	if (init_mutexs(data))
 		return (1);
 	gettimeofday(&tv, NULL);

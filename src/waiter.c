@@ -36,9 +36,10 @@ static int	get_hungriest(t_data *data)
 	pthread_mutex_lock(&data->data_mutex);
 	while (i < data->num_philo)
 	{
-		if (!data->is_sleeping[i] && !data->can_eat[i] &&
-			!neighbours_can_eat(i, data) &&
-			data->ts_last_ate[i] < min_val)
+		if (!data->is_sleeping[i] && !data->can_eat[i]
+			&& !neighbours_can_eat(i, data)
+			&& !is_finished(data, i)
+			&& data->ts_last_ate[i] < min_val)
 		{
 			hungriest = i;
 			min_val = data->ts_last_ate[i];
@@ -49,8 +50,7 @@ static int	get_hungriest(t_data *data)
 	return (hungriest);
 }
 
-/* need to alter this logic to stagger the approvals 
- * currently it's marking it all as yes every time*/
+/* need to alter this logic to stagger better */
 void	*waiter(void *waiter_data)
 {
 	t_data	*data;
@@ -68,7 +68,7 @@ void	*waiter(void *waiter_data)
 			data->can_eat[hungriest] = 1;
 			pthread_mutex_unlock(&data->data_mutex);
 		}
-		usleep(1500);
+		usleep(1000);
 	}
 	return (NULL);
 }

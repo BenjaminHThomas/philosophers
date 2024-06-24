@@ -47,6 +47,15 @@ long	get_timestamp(t_data *data)
 	return (currtime - data->start_time);
 }
 
+int	is_finished(t_data *data, int idx)
+{
+	if (!data->num_eats_each)
+		return (0);
+	if (data->num_eaten[idx] == data->num_eats_each)
+		return (1);
+	return (0);
+}
+
 int	all_finished(t_data *data)
 {
 	unsigned int	i;
@@ -56,7 +65,7 @@ int	all_finished(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		if (data->num_eaten[i] != data->num_eats_each)
+		if (!is_finished(data, i))
 			return (0);
 		i++;
 	}

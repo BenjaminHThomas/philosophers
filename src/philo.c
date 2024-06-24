@@ -77,6 +77,7 @@ void	*philo(void *philo_data)
 
 	idx = ((struct s_philo *)philo_data)->idx;
 	data = ((struct s_philo *)philo_data)->data;
+	data->ts_last_ate[idx] = get_timestamp(data);
 	while (data->dead_philo == 0)
 	{
 		printf("%ld %d is thinking\n", get_timestamp(data), idx);
@@ -84,7 +85,7 @@ void	*philo(void *philo_data)
 		{
 			if (is_dead(data, idx))
 				return (NULL);
-			usleep(1000);
+			usleep(1100);
 		}
 		eat(data, idx);
 		sleep_philo(data, idx);
