@@ -47,17 +47,13 @@ static void	eat(t_data *data, int idx)
 	left_fork = idx;
 	right_fork = (idx + 1) % data->num_philo;
 	lock_forks(data, left_fork, right_fork, idx);
-	pthread_mutex_lock(&data->data_mutex);
 	data->ts_last_ate[idx] = get_timestamp(data);
-	pthread_mutex_unlock(&data->data_mutex);
 	printf("%ld %d is eating\n", get_timestamp(data), idx);
 	usleep(data->time_to_eat * 1000);
 	pthread_mutex_unlock(&data->forks[left_fork]);
 	pthread_mutex_unlock(&data->forks[right_fork]);
-	pthread_mutex_lock(&data->data_mutex);
 	data->can_eat[idx] = 0;
 	data->num_eaten[idx]++;
-	pthread_mutex_unlock(&data->data_mutex);
 }
 
 static void	sleep_philo(t_data *data, int idx)
@@ -85,7 +81,7 @@ void	*philo(void *philo_data)
 		{
 			if (is_dead(data, idx))
 				return (NULL);
-			usleep(1100);
+			usleep(1000);
 		}
 		eat(data, idx);
 		sleep_philo(data, idx);

@@ -49,11 +49,14 @@ long	get_timestamp(t_data *data)
 
 int	is_finished(t_data *data, int idx)
 {
+	int	retval;
+
 	if (!data->num_eats_each)
 		return (0);
-	if (data->num_eaten[idx] == data->num_eats_each)
-		return (1);
-	return (0);
+	pthread_mutex_lock(&data->data_mutex);
+	retval = (data->num_eaten[idx] == data->num_eats_each);
+	pthread_mutex_unlock(&data->data_mutex);
+	return (retval);
 }
 
 int	all_finished(t_data *data)
