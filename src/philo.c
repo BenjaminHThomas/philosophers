@@ -30,8 +30,13 @@ static int	is_dead(t_data *data, int idx)
 {
 	if (get_timestamp(data) - data->ts_last_ate[idx] >= data->time_to_die)
 	{
-		printf("%ld %d is dead\n", get_timestamp(data), idx);
-		data->dead_philo = 1;
+		pthread_mutex_lock(&data->data_mutex);
+		if (!data->dead_philo)
+		{
+			printf("%ld %d is dead\n", get_timestamp(data), idx);
+			data->dead_philo = 1;
+		}
+		pthread_mutex_unlock(&data->data_mutex);
 		return (1);
 	}
 	return (0);
@@ -59,7 +64,7 @@ static void	eat(t_data *data, int idx)
 static void	sleep_philo(t_data *data, int idx)
 {
 	if (data->dead_philo)
-		return ;
+		return ;	
 	printf("%ld %d is sleeping\n", get_timestamp(data), idx);
 	data->is_sleeping[idx] = 1;
 	usleep(data->time_to_sleep * 1000);
