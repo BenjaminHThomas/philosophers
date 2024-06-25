@@ -6,13 +6,13 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:37:26 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 10:16:43 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:19:29 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	neighbours_can_eat(unsigned int i, t_data *data)
+int	neighbours_can_eat(unsigned int i, t_data *data)
 {
 	unsigned int	left;
 	unsigned int	right;
@@ -24,16 +24,15 @@ static int	neighbours_can_eat(unsigned int i, t_data *data)
 	return (retval);
 }
 
-static int	is_safe(t_data *data, unsigned int idx)
+int	is_safe(t_data *data, unsigned int idx)
 {
 	int	retval;
 
-	retval = (!data->is_sleeping[idx] && !data->can_eat[idx]
-			&& !neighbours_can_eat(idx, data)
+	retval = (!data->is_sleeping[idx]
 			&& !is_finished(data, idx));
 	return (retval);
 }
-
+/*
 static int	get_hungriest(t_data *data)
 {
 	unsigned int	i;
@@ -55,7 +54,8 @@ static int	get_hungriest(t_data *data)
 	}
 	return (hungriest);
 }
-
+*/
+/*
 void	*waiter(void *waiter_data)
 {
 	t_data	*data;
@@ -72,3 +72,4 @@ void	*waiter(void *waiter_data)
 	}
 	return (NULL);
 }
+*/

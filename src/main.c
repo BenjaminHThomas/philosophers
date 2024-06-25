@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:57:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 10:01:43 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:23:28 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < data.num_philo)
 		pthread_join(data.threads[i], NULL);
-	pthread_join(data.waiter, NULL);
 	cleanup(&data);
 	return (0);
 }

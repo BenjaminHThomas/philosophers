@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 10:25:20 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:22:31 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_data
 	pthread_mutex_t		forks[200];
 	int					fork_mutex_init[200];
 	pthread_t			threads[200];
-	pthread_t			waiter;
 	struct s_philo		philo_data[200];
 	int					is_sleeping[200];
 	int					can_eat[200];
@@ -62,5 +61,7 @@ void			*waiter(void *waiter_data);
 int				is_finished(t_data *data, int idx);
 int				all_finished(t_data *data);
 void			philo_wait(t_data *data, unsigned int msecs);
+int				neighbours_can_eat(unsigned int i, t_data *data);
+int				is_safe(t_data *data, unsigned int idx);
 
 #endif

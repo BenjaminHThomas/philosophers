@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/23 12:25:09 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:22:39 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	create_threads(t_data *data)
 			return (1);
 		i++;
 	}
-	if (pthread_create(&data->waiter, NULL, waiter, data) != 0)
-		return (1);
 	return (0);
 }
 
