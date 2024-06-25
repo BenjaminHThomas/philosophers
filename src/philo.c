@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 19:36:03 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 20:10:51 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ static void	eat(t_data *data, int idx)
 
 static void	sleep_philo(t_data *data, int idx)
 {
-	if (data->dead_philo && is_dead(data, idx))
+	pthread_mutex_lock(&data->data_mutex);
+	if (data->dead_philo)
+	{
+		pthread_mutex_unlock(&data->data_mutex);
 		return ;
+	}
+	pthread_mutex_unlock(&data->data_mutex);
 	printf("%ld %d is sleeping\n", get_timestamp(data), idx + 1);
 	data->is_sleeping[idx] = 1;
 	philo_wait(data, data->time_to_sleep);
