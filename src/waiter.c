@@ -51,7 +51,7 @@ static int	get_hungriest(t_data *data)
 			min_val = data->ts_last_ate[i];
 		}
 		i++;
-		usleep(50);
+		usleep(15);
 	}
 	return (hungriest);
 }
