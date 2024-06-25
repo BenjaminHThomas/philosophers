@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/23 12:22:05 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:25:20 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void			*philo(void *philo_data);
 void			*waiter(void *waiter_data);
 int				is_finished(t_data *data, int idx);
 int				all_finished(t_data *data);
+void			philo_wait(t_data *data, unsigned int msecs);
 
 #endif

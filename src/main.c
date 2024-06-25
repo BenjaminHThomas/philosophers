@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:57:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/22 16:46:15 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:01:43 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
  *   num_times_each_must_eat
  */
 
-/*
-	* example:
-	*    3, 4, 1, 1
-	*
-*/
 int	main(int ac, char **av)
 {
 	t_data			data;

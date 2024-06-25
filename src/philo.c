@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/23 12:42:24 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:20:12 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	eat(t_data *data, int idx)
 	lock_forks(data, left_fork, right_fork, idx);
 	data->ts_last_ate[idx] = get_timestamp(data);
 	printf("%ld %d is eating\n", get_timestamp(data), idx);
-	usleep(data->time_to_eat * 1000);
+	philo_wait(data, data->time_to_eat);
 	pthread_mutex_unlock(&data->forks[left_fork]);
 	pthread_mutex_unlock(&data->forks[right_fork]);
 	data->can_eat[idx] = 0;
@@ -64,10 +64,10 @@ static void	eat(t_data *data, int idx)
 static void	sleep_philo(t_data *data, int idx)
 {
 	if (data->dead_philo)
-		return ;	
+		return ;
 	printf("%ld %d is sleeping\n", get_timestamp(data), idx);
 	data->is_sleeping[idx] = 1;
-	usleep(data->time_to_sleep * 1000);
+	philo_wait(data, data->time_to_sleep);
 	data->is_sleeping[idx] = 0;
 }
 

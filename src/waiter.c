@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 18:37:26 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/23 12:34:32 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/25 10:16:43 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static int	is_safe(t_data *data, unsigned int idx)
 
 static int	get_hungriest(t_data *data)
 {
-	unsigned int		i;
-	unsigned int		hungriest;
-	long				min_val;
+	unsigned int	i;
+	unsigned int	hungriest;
+	long			min_val;
 
 	i = 0;
 	min_val = MAXINT;
@@ -56,7 +56,6 @@ static int	get_hungriest(t_data *data)
 	return (hungriest);
 }
 
-/* need to alter this logic to stagger better */
 void	*waiter(void *waiter_data)
 {
 	t_data	*data;
