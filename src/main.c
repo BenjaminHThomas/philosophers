@@ -6,18 +6,11 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:57:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 19:22:51 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/26 19:23:27 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/* Args:
- *   num_phils, time_to_die, time_to_eat, time_to_sleep
- *
- * Optional Arg:
- *   num_times_each_must_eat
- */
 
 int	main(int ac, char **av)
 {

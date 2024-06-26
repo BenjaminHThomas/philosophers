@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:17:50 by bento             #+#    #+#             */
-/*   Updated: 2024/06/26 19:18:59 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/26 20:00:47 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ int	ft_errmsg(const char *s)
 {
 	write(2, s, ft_strlen(s));
 	return (0);
+}
+
+void	print_state(t_philo *philo)
+{
+	printf("%ld %d is %s\n", get_timestamp(philo->table), philo->idx + 1,
+		philo->state);
 }

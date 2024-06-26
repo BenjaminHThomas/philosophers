@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 19:21:19 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/26 19:39:09 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	init_mutexs(t_table *data)
 		data->fork_mutex_init[i] = 1;
 		if (pthread_mutex_init(&data->philos[i].self_mutex, NULL) != 0)
 			return (1);
+		data->philos[i].self_mutex_init = 1;
 		i++;
 	}
 	return (0);

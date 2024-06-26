@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 19:08:21 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/26 21:00:38 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	time_t				last_ate;
 	t_philo_state		state;
 	pthread_mutex_t		self_mutex;
+	bool				self_mutex_init;
 	t_table				*table;
 	unsigned int		num_eaten;
 }	t_philo;
@@ -47,14 +48,14 @@ typedef struct s_philo
 typedef struct s_table
 {
 	pthread_mutex_t		data_mutex;
-	int					data_mutex_init;
+	bool				data_mutex_init;
 	unsigned int		num_philo;
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
 	int					eat_limit;
 	pthread_mutex_t		forks[200];
-	int					fork_mutex_init[200];
+	bool				fork_mutex_init[200];
 	pthread_t			threads[200];
 	struct s_philo		philos[200];
 	time_t				start_time;
@@ -62,17 +63,17 @@ typedef struct s_table
 }	t_table;
 
 int				valid_input(int ac, char **av);
-void			cleanup(t_data *data);
-int				init(int ac, char **av, t_data *data);
+void			cleanup(t_table *data);
+int				init(int ac, char **av, t_table *data);
 unsigned int	ft_utoi(char *s);
 long			get_milisecs(struct timeval *tv);
-long			get_timestamp(t_data *data);
-void			*philo(void *philo_data);
-void			*waiter(void *waiter_data);
-int				is_finished(t_data *data, int idx);
-int				all_finished(t_data *data);
-void			philo_wait(t_data *data, unsigned int msecs);
-int				neighbours_can_eat(unsigned int i, t_data *data);
-int				is_safe(t_data *data, unsigned int idx);
+long			get_timestamp(t_table *data);
+void			*philo_life(void *philo_data);
+int				is_finished(t_table *data, int idx);
+int				all_finished(t_table *data);
+void			philo_wait(t_table *data, unsigned int msecs);
+void			print_state(t_philo *philo);
+void			lock_forks(t_philo *philo);
+void			unlock_forks(t_philo *philo);
 
 #endif

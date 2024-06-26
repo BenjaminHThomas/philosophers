@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:03 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 19:21:46 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:25:17 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	cleanup(t_data *data)
+void	cleanup(t_table *data)
 {
 	unsigned int	i;
 
@@ -21,6 +21,8 @@ void	cleanup(t_data *data)
 	{
 		if (data->fork_mutex_init[i])
 			pthread_mutex_destroy(&data->forks[i]);
+		if (data->philos[i].self_mutex_init)
+			pthread_mutex_destroy(&data->philos[i].self_mutex);
 		i++;
 	}
 }

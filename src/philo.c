@@ -3,114 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 21:19:39 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 21:03:45 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	lock_forks(t_data *data, int left_fork, int right_fork, int idx)
+static void philo_think(t_philo *philo)
 {
-	if (idx % 2 == 0)
-	{
-		pthread_mutex_lock(&data->forks[left_fork]);
-		pthread_mutex_lock(&data->forks[right_fork]);
-	}
-	else
-	{
-		pthread_mutex_lock(&data->forks[right_fork]);
-		pthread_mutex_lock(&data->forks[left_fork]);
-	}
+	pthread_mutex_lock(&philo->self_mutex);
+	philo->state = THINKING;
+	pthread_mutex_unlock(&philo->self_mutex);
+	print_state(philo);
+	philo_wait(philo->table, 1);
+	pthread_mutex_lock(&philo->self_mutex);
+	philo->state = HUNGRY;
+	pthread_mutex_unlock(&philo->self_mutex);
 }
 
-void	unlock_forks(t_data *data, int left_fork, int right_fork)
+static void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_unlock(&data->forks[left_fork]);
-	pthread_mutex_unlock(&data->forks[right_fork]);
+	lock_forks(philo);
+	pthread_mutex_lock(&philo->self_mutex);
+	philo->state = EATING;
+	philo->last_ate = get_timestamp(philo->table);
+	print_state(philo);
+	philo_wait(philo->table, philo->table->time_to_eat);
+	pthread_mutex_unlock(&philo->self_mutex);
+	unlock_forks(philo);
 }
 
-static int	is_dead(t_data *data, int idx)
+static void	philo_sleep(t_philo *philo)
 {
-	long	currtime;
-
-	currtime = get_timestamp(data);
-	if (currtime - data->ts_last_ate[idx] >= data->time_to_die)
-	{
-		pthread_mutex_lock(&data->data_mutex);
-		if (!data->dead_philo)
-		{
-			printf("%ld %d is dead\n", currtime, idx + 1);
-			data->dead_philo = 1;
-		}
-		pthread_mutex_unlock(&data->data_mutex);
-		return (1);
-	}
-	return (0);
+	pthread_mutex(&philo->self_mutex);
+	philo->state = SLEEPING;
+	print_state(philo);
+	philo_wait(philo->table, philo->table->time_to_sleep);
+	pthread_mutex_unlock(&philo->self_mutex);
 }
 
-static void	eat(t_data *data, int idx)
+void	*philo_life(void *arg)
 {
-	int	left_fork;
-	int	right_fork;
+	t_philo	*philo;
 
-	left_fork = idx;
-	right_fork = (idx + 1) % data->num_philo;
-	lock_forks(data, left_fork, right_fork, idx);
-	if (is_dead(data, idx) || data->dead_philo)
+	philo = (t_philo *)arg;
+	philo->left_fork = philo->idx;
+	philo->right_fork = (philo->idx + 1) % philo->table->num_philo;
+	while (!philo->table->must_stop)
 	{
-		unlock_forks(data, left_fork, right_fork);
-		return ;
-	}
-	data->ts_last_ate[idx] = get_timestamp(data);
-	printf("%ld %d is eating\n", get_timestamp(data), idx + 1);
-	philo_wait(data, data->time_to_eat);
-	pthread_mutex_unlock(&data->forks[left_fork]);
-	pthread_mutex_unlock(&data->forks[right_fork]);
-	data->can_eat[idx] = 0;
-	data->num_eaten[idx]++;
-}
-
-static void	sleep_philo(t_data *data, int idx)
-{
-	pthread_mutex_lock(&data->data_mutex);
-	if (data->dead_philo)
-	{
-		pthread_mutex_unlock(&data->data_mutex);
-		return ;
-	}
-	pthread_mutex_unlock(&data->data_mutex);
-	printf("%ld %d is sleeping\n", get_timestamp(data), idx + 1);
-	data->is_sleeping[idx] = 1;
-	philo_wait(data, data->time_to_sleep);
-	data->is_sleeping[idx] = 0;
-}
-
-void	*philo(void *philo_data)
-{
-	unsigned int	idx;
-	t_data			*data;
-
-	idx = ((struct s_philo *)philo_data)->idx;
-	data = ((struct s_philo *)philo_data)->data;
-	data->ts_last_ate[idx] = get_timestamp(data);
-	if (data->num_philo == 1)
-	{
-		printf("%ld %d is thinking\n", get_timestamp(data), idx + 1);
-		philo_wait(data, data->time_to_die);
-		is_dead(data, idx);
-	}
-	if (idx % 2 == 0)
-		philo_wait(data, 60);
-	while (data->dead_philo == 0)
-	{
-		printf("%ld %d is thinking\n", get_timestamp(data), idx + 1);
-		eat(data, idx);
-		sleep_philo(data, idx);
-		if (data->num_eats_each && data->num_eats_each == data->num_eaten[idx])
-			break ;
+		philo_think(philo);
+		philo_eat(philo);
+		philo_sleep(philo);
 	}
 	return (NULL);
 }
