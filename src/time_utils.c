@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_wait.c                                       :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 10:26:50 by bthomas          ###   ########.fr       */
+/*   Created: 2024/06/26 19:04:51 by bento             #+#    #+#             */
+/*   Updated: 2024/06/26 19:06:18 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_wait(t_data *data, unsigned int msecs)
+long	get_milisecs(struct timeval *tv)
+{
+	return ((tv->tv_sec * 1000) + (tv->tv_usec / 1000));
+}
+
+long	get_timestamp(t_table *data)
+{
+	struct timeval	now;
+	long			currtime;
+
+	gettimeofday(&now, NULL);
+	currtime = get_milisecs(&now);
+	return (currtime - data->start_time);
+}
+
+void	philo_wait(t_table *data, unsigned int msecs)
 {
 	long		curr_time;
 	long long	time_to_rest;
@@ -22,7 +37,7 @@ void	philo_wait(t_data *data, unsigned int msecs)
 	while (get_timestamp(data) - curr_time < time_to_rest)
 	{
 		usleep(1000);
-		if (data->dead_philo)
+		if (data->must_stop)
 			break ;
 	}
 }

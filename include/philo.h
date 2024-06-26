@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 19:22:31 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:08:21 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,32 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# define MAXUINT 4294967295
-# define MAXINT 2147483647
-# define MININT -2147483648
+# include <limits.h>
+# include <stdbool.h>
 
-struct s_philo
+typedef struct s_table t_table;
+
+typedef enum e_philo_state
 {
-	struct s_data	*data;
-	unsigned int	idx;
-};
+	THINKING,
+	HUNGRY,
+	EATING,
+	SLEEPING
+}	t_philo_state;
 
-typedef struct s_data
+typedef struct s_philo
+{
+	unsigned int		idx;
+	unsigned int		left_fork;
+	unsigned int		right_fork;
+	time_t				last_ate;
+	t_philo_state		state;
+	pthread_mutex_t		self_mutex;
+	t_table				*table;
+	unsigned int		num_eaten;
+}	t_philo;
+
+typedef struct s_table
 {
 	pthread_mutex_t		data_mutex;
 	int					data_mutex_init;
@@ -37,18 +52,14 @@ typedef struct s_data
 	unsigned int		time_to_die;
 	unsigned int		time_to_eat;
 	unsigned int		time_to_sleep;
-	unsigned int		num_eats_each;
+	int					eat_limit;
 	pthread_mutex_t		forks[200];
 	int					fork_mutex_init[200];
 	pthread_t			threads[200];
-	struct s_philo		philo_data[200];
-	int					is_sleeping[200];
-	int					can_eat[200];
-	long				ts_last_ate[200];
-	unsigned int		num_eaten[200];
-	long				start_time;
-	int					dead_philo;
-}	t_data;
+	struct s_philo		philos[200];
+	time_t				start_time;
+	bool				must_stop;
+}	t_table;
 
 int				valid_input(int ac, char **av);
 void			cleanup(t_data *data);

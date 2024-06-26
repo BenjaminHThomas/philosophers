@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:50:04 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/23 12:21:54 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:10:27 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,23 @@ unsigned int	ft_utoi(char *s)
 	return (res);
 }
 
-long	get_milisecs(struct timeval *tv)
-{
-	return ((tv->tv_sec * 1000) + (tv->tv_usec / 1000));
-}
-
-long	get_timestamp(t_data *data)
-{
-	struct timeval	now;
-	long			currtime;
-
-	gettimeofday(&now, NULL);
-	currtime = get_milisecs(&now);
-	return (currtime - data->start_time);
-}
-
-int	is_finished(t_data *data, int idx)
+int	is_finished(t_table *data, int idx)
 {
 	int	retval;
 
-	if (!data->num_eats_each)
+	if (data->eat_limit == -1)
 		return (0);
-	pthread_mutex_lock(&data->data_mutex);
-	retval = (data->num_eaten[idx] == data->num_eats_each);
-	pthread_mutex_unlock(&data->data_mutex);
+	pthread_mutex_lock(&data->philos[idx].self_mutex);
+	retval = (data->philos[idx].num_eaten == data->eat_limit);
+	pthread_mutex_unlock(&data->philos[idx].self_mutex);
 	return (retval);
 }
 
-int	all_finished(t_data *data)
+int	all_finished(t_table *data)
 {
 	unsigned int	i;
 
-	if (!data->num_eats_each)
+	if (data->eat_limit == -1)
 		return (0);
 	i = 0;
 	while (i < data->num_philo)

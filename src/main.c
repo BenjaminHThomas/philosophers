@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:57:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 19:23:28 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:22:51 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,18 @@
 
 int	main(int ac, char **av)
 {
-	t_data			data;
+	t_table			data;
 	unsigned int	i;
 
 	if (ac < 5 || ac > 6)
-		return (1);
+		return (ft_errmsg("Usage:./philo <num_phils> <time_to_die> "
+				"<time_to_eat> <time_to_sleep> [num_times_each_must_eat]\n"));
 	if (!valid_input(ac, av))
-		return (1);
+		return (ft_errmsg("Invalid input\n"));
 	if (init(ac, av, &data))
 	{
 		cleanup(&data);
-		return (1);
+		return (ft_errmsg("Error initializing\n"));
 	}
 	i = -1;
 	while (++i < data.num_philo)

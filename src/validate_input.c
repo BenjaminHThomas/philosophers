@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:42:32 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/20 11:55:58 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:17:18 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	num_too_big(const char *s)
 	{
 		res *= 10;
 		res += s[i] - '0';
-		if (res >= MAXINT / 10)
+		if (res >= INT_MAX / 10)
 			return (1);
 		i++;
 	}

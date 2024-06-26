@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 19:15:22 by bento            ###   ########.fr       */
+/*   Created: 2024/06/26 19:17:50 by bento             #+#    #+#             */
+/*   Updated: 2024/06/26 19:18:59 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	lock_forks(t_table *data, int left_fork, int right_fork, int idx)
+static size_t	ft_strlen(const char *s)
 {
+	size_t	len;
 
+	len = 0;
+	while (s && s[len])
+		len++;
+	return (len);
 }
 
-void	unlock_forks(t_table *data, int left_fork, int right_fork)
+int	ft_errmsg(const char *s)
 {
-
-}
-
-int	is_dead(t_table *data, int idx)
-{
-	long	curr_time;
-
-	curr_time = get_timestamp(data);
-	if (curr_time - data->philos[idx].last_ate >= data->time_to_die)
-	{
-		if (!data->must_stop)
-		{
-			printf("%ld %d is dead\n", curr_time, idx + 1);
-			data->must_stop = 1;
-		}
-		return (1);
-	}
+	write(2, s, ft_strlen(s));
 	return (0);
 }

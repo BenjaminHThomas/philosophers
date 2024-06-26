@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/25 19:22:39 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:21:19 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	create_threads(t_data *data)
+int	create_threads(t_table *data)
 {
 	unsigned int		i;
 
 	i = 0;
 	while (i < data->num_philo)
 	{
-		data->philo_data[i].data = data;
-		data->philo_data[i].idx = i;
+		data->philos[i].table = data;
+		data->philos[i].idx = i;
 		i++;
 	}
 	i = 0;
 	while (i < data->num_philo)
 	{
 		if (pthread_create(&data->threads[i], NULL,
-				philo, &data->philo_data[i]) != 0)
+				philo, &data->philos[i]) != 0)
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	init_mutexs(t_data *data)
+int	init_mutexs(t_table *data)
 {
 	unsigned int	i;
 
@@ -47,24 +47,26 @@ int	init_mutexs(t_data *data)
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (1);
 		data->fork_mutex_init[i] = 1;
+		if (pthread_mutex_init(&data->philos[i].self_mutex, NULL) != 0)
+			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	init(int ac, char **av, t_data *data)
+int	init(int ac, char **av, t_table *data)
 {
 	struct timeval	tv;
 
-	memset(data, 0, sizeof(t_data));
+	memset(data, 0, sizeof(t_table));
 	data->num_philo = ft_utoi(av[1]);
 	data->time_to_die = ft_utoi(av[2]);
 	data->time_to_eat = ft_utoi(av[3]);
 	data->time_to_sleep = ft_utoi(av[4]);
 	if (ac == 6)
-		data->num_eats_each = ft_utoi(av[5]);
+		data->eat_limit = ft_utoi(av[5]);
 	else
-		data->num_eats_each = 0;
+		data->eat_limit = -1;
 	if (init_mutexs(data))
 		return (1);
 	gettimeofday(&tv, NULL);
