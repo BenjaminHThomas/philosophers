@@ -12,12 +12,12 @@
 
 #include "philo.h"
 
-static void philo_think(t_philo *philo)
+static void	philo_think(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = THINKING;
 	pthread_mutex_unlock(&philo->self_mutex);
-	print_state(philo);
+	print_state(philo, "thinking");
 	philo_wait(philo->table, 1);
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = HUNGRY;
@@ -30,7 +30,7 @@ static void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = EATING;
 	philo->last_ate = get_timestamp(philo->table);
-	print_state(philo);
+	print_state(philo, "eating");
 	philo_wait(philo->table, philo->table->time_to_eat);
 	pthread_mutex_unlock(&philo->self_mutex);
 	unlock_forks(philo);
@@ -38,9 +38,9 @@ static void	philo_eat(t_philo *philo)
 
 static void	philo_sleep(t_philo *philo)
 {
-	pthread_mutex(&philo->self_mutex);
+	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = SLEEPING;
-	print_state(philo);
+	print_state(philo, "sleeping");
 	philo_wait(philo->table, philo->table->time_to_sleep);
 	pthread_mutex_unlock(&philo->self_mutex);
 }

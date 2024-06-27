@@ -28,8 +28,7 @@ int	ft_errmsg(const char *s)
 	return (0);
 }
 
-void	print_state(t_philo *philo)
+void	print_state(t_philo *philo, char *status)
 {
-	printf("%ld %d is %s\n", get_timestamp(philo->table), philo->idx + 1,
-		philo->state);
+	printf("%ld %d is %s\n", get_timestamp(philo->table), philo->idx + 1, status);
 }

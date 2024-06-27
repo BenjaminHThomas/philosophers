@@ -27,7 +27,7 @@ int	create_threads(t_table *data)
 	while (i < data->num_philo)
 	{
 		if (pthread_create(&data->threads[i], NULL,
-				philo, &data->philos[i]) != 0)
+				philo_life, &data->philos[i]) != 0)
 			return (1);
 		i++;
 	}

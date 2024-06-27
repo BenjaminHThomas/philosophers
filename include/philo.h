@@ -72,8 +72,9 @@ void			*philo_life(void *philo_data);
 int				is_finished(t_table *data, int idx);
 int				all_finished(t_table *data);
 void			philo_wait(t_table *data, unsigned int msecs);
-void			print_state(t_philo *philo);
+void			print_state(t_philo *philo, char *status);
 void			lock_forks(t_philo *philo);
 void			unlock_forks(t_philo *philo);
+int				ft_errmsg(const char *s);
 
 #endif

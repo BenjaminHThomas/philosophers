@@ -39,7 +39,7 @@ int	is_finished(t_table *data, int idx)
 	if (data->eat_limit == -1)
 		return (0);
 	pthread_mutex_lock(&data->philos[idx].self_mutex);
-	retval = (data->philos[idx].num_eaten == data->eat_limit);
+	retval = (data->philos[idx].num_eaten == (unsigned)data->eat_limit);
 	pthread_mutex_unlock(&data->philos[idx].self_mutex);
 	return (retval);
 }
