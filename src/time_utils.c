@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:04:51 by bento             #+#    #+#             */
-/*   Updated: 2024/06/26 19:06:18 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/26 21:05:30 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	philo_wait(t_table *data, unsigned int msecs)
 	curr_time = get_timestamp(data);
 	while (get_timestamp(data) - curr_time < time_to_rest)
 	{
-		usleep(1000);
+		usleep(100);
 		if (data->must_stop)
 			break ;
 	}
