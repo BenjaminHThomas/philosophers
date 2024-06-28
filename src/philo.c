@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 21:03:45 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/28 10:21:50 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,25 @@ static void	philo_think(t_philo *philo)
 
 static void	philo_eat(t_philo *philo)
 {
+	if (philo->idx % 2 == 0)
+		usleep(10);
 	lock_forks(philo);
+	if (is_dead(philo))
+		return ;
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = EATING;
 	philo->last_ate = get_timestamp(philo->table);
+	philo->num_eaten++;
+	pthread_mutex_unlock(&philo->self_mutex);
 	print_state(philo, "eating");
 	philo_wait(philo->table, philo->table->time_to_eat);
-	pthread_mutex_unlock(&philo->self_mutex);
 	unlock_forks(philo);
 }
 
 static void	philo_sleep(t_philo *philo)
 {
+	if (is_dead(philo))
+		return ;
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = SLEEPING;
 	print_state(philo, "sleeping");
@@ -57,6 +64,8 @@ void	*philo_life(void *arg)
 		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
+		if (is_finished(philo->table, philo->idx))
+			break ;
 	}
 	return (NULL);
 }

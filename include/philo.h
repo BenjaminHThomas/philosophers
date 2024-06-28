@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 21:00:38 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/27 15:20:35 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_philo
 	t_philo_state		state;
 	pthread_mutex_t		self_mutex;
 	bool				self_mutex_init;
+	pthread_t			thread;
 	t_table				*table;
 	unsigned int		num_eaten;
 }	t_philo;
@@ -56,7 +57,6 @@ typedef struct s_table
 	int					eat_limit;
 	pthread_mutex_t		forks[200];
 	bool				fork_mutex_init[200];
-	pthread_t			threads[200];
 	struct s_philo		philos[200];
 	time_t				start_time;
 	bool				must_stop;
@@ -76,5 +76,6 @@ void			print_state(t_philo *philo, char *status);
 void			lock_forks(t_philo *philo);
 void			unlock_forks(t_philo *philo);
 int				ft_errmsg(const char *s);
+bool			is_dead(t_philo *philo);
 
 #endif

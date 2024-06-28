@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/26 20:56:55 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/27 15:18:22 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ bool	is_dead(t_philo *philo)
 {
 	time_t	curr_time;
 	time_t	time_to_die;
+	time_t	last_ate;
 
 	time_to_die = philo->table->time_to_die;
 	curr_time = get_timestamp(philo->table);
-	if (curr_time - philo->last_ate >= time_to_die)
+	pthread_mutex_lock(&philo->self_mutex);
+	last_ate = philo->last_ate;
+	pthread_mutex_unlock(&philo->self_mutex);
+	if (curr_time - last_ate >= time_to_die)
 	{
 		if (!is_stopped(philo->table))
 		{
@@ -50,8 +54,16 @@ bool	is_dead(t_philo *philo)
 
 void	lock_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-	pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+	if (philo->idx % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+	}
 }
 
 void	unlock_forks(t_philo *philo)
