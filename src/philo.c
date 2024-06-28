@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/28 10:21:50 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/28 10:31:51 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	philo_think(t_philo *philo)
 {
+	if (is_dead(philo))
+		return ;
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = THINKING;
 	pthread_mutex_unlock(&philo->self_mutex);
@@ -30,7 +32,10 @@ static void	philo_eat(t_philo *philo)
 		usleep(10);
 	lock_forks(philo);
 	if (is_dead(philo))
+	{
+		unlock_forks(philo);
 		return ;
+	}
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = EATING;
 	philo->last_ate = get_timestamp(philo->table);
@@ -47,9 +52,9 @@ static void	philo_sleep(t_philo *philo)
 		return ;
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = SLEEPING;
+	pthread_mutex_unlock(&philo->self_mutex);
 	print_state(philo, "sleeping");
 	philo_wait(philo->table, philo->table->time_to_sleep);
-	pthread_mutex_unlock(&philo->self_mutex);
 }
 
 void	*philo_life(void *arg)
@@ -57,6 +62,12 @@ void	*philo_life(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->table->num_philo == 1)
+	{
+		print_state(philo, "thinking");
+		philo_wait(philo->table, philo->table->time_to_die);
+		is_dead(philo);
+	}
 	philo->left_fork = philo->idx;
 	philo->right_fork = (philo->idx + 1) % philo->table->num_philo;
 	while (!philo->table->must_stop)
