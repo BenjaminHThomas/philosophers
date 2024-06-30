@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/28 10:31:51 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/30 08:48:53 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	philo_think(t_philo *philo)
 static void	philo_eat(t_philo *philo)
 {
 	if (philo->idx % 2 == 0)
-		usleep(10);
+		usleep(philo->table->time_to_eat / 2);
 	lock_forks(philo);
 	if (is_dead(philo))
 	{

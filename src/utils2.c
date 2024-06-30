@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:18:22 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/28 10:50:00 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ void	lock_forks(t_philo *philo)
 
 void	unlock_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
 	pthread_mutex_unlock(&philo->table->forks[philo->left_fork]);
+	pthread_mutex_unlock(&philo->table->forks[philo->right_fork]);
 }
