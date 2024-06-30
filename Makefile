@@ -6,7 +6,7 @@
 #    By: bento <bento@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/18 14:53:55 by bthomas           #+#    #+#              #
-#    Updated: 2024/06/26 19:19:27 by bento            ###   ########.fr        #
+#    Updated: 2024/06/30 09:08:37 by bento            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ CFILES	= main.c \
 		  utils2.c \
 		  time_utils.c \
 		  messages.c \
-		  philo.c
+		  philo.c \
+		  hangman.c
 
 SRCS	= $(addprefix $(SRCDIR)/, $(CFILES))
 OBJS	= $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

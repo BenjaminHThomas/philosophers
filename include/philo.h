@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:20:35 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/30 09:16:03 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <limits.h>
 # include <stdbool.h>
 
-typedef struct s_table t_table;
+typedef struct s_table	t_table;
 
 typedef enum e_philo_state
 {
@@ -41,6 +41,7 @@ typedef struct s_philo
 	t_philo_state		state;
 	pthread_mutex_t		self_mutex;
 	bool				self_mutex_init;
+	bool				is_dead;
 	pthread_t			thread;
 	t_table				*table;
 	unsigned int		num_eaten;
@@ -60,6 +61,7 @@ typedef struct s_table
 	struct s_philo		philos[200];
 	time_t				start_time;
 	bool				must_stop;
+	pthread_t			hangman_thread;
 }	t_table;
 
 int				valid_input(int ac, char **av);
@@ -77,5 +79,6 @@ void			lock_forks(t_philo *philo);
 void			unlock_forks(t_philo *philo);
 int				ft_errmsg(const char *s);
 bool			is_dead(t_philo *philo);
+void			*hangman(void *arg);
 
 #endif

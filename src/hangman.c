@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   messages.c                                         :+:      :+:    :+:   */
+/*   hangman.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/26 19:17:50 by bento             #+#    #+#             */
-/*   Updated: 2024/06/30 09:16:12 by bento            ###   ########.fr       */
+/*   Created: 2024/06/30 08:57:14 by bento             #+#    #+#             */
+/*   Updated: 2024/06/30 09:16:29 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static size_t	ft_strlen(const char *s)
+void	*hangman(void *arg)
 {
-	size_t	len;
+	t_table			*data;
+	unsigned int	i;
 
-	len = 0;
-	while (s && s[len])
-		len++;
-	return (len);
-}
-
-int	ft_errmsg(const char *s)
-{
-	write(2, s, ft_strlen(s));
-	return (0);
-}
-
-void	print_state(t_philo *philo, char *status)
-{
-	printf("%ld %d is %s\n", get_timestamp(philo->table),
-		philo->idx + 1, status);
+	data = (t_table *)arg;
+	while (!data->must_stop)
+	{
+		i = 0;
+		while (i < data->num_philo)
+		{
+			is_dead(&data->philos[i]);
+			i++;
+		}
+		usleep(100);
+		if (all_finished(data))
+			break ;
+	}
+	return (NULL);
 }

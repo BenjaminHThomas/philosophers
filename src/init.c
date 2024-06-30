@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:14:58 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:14:53 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/30 09:08:25 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	create_threads(t_table *data)
 			return (1);
 		i++;
 	}
+	if (pthread_create(&data->hangman_thread, NULL, hangman, data) != 0)
+		return (1);
 	return (0);
 }
 

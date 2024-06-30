@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:57:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/27 15:15:14 by bento            ###   ########.fr       */
+/*   Updated: 2024/06/30 09:15:04 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av)
 	i = -1;
 	while (++i < data.num_philo)
 		pthread_join(data.philos[i].thread, NULL);
+	pthread_join(data.hangman_thread, NULL);
 	cleanup(&data);
 	return (0);
 }
