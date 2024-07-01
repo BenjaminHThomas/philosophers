@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/07/01 08:23:32 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:36:12 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	philo_think(t_philo *philo)
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = THINKING;
 	pthread_mutex_unlock(&philo->self_mutex);
-	print_state(philo, "thinking");
+	print_state(philo, "is thinking", PINK);
 	philo_wait(philo->table, 1);
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = HUNGRY;
@@ -41,7 +41,7 @@ static void	philo_eat(t_philo *philo)
 	philo->last_ate = get_timestamp(philo->table);
 	philo->num_eaten++;
 	pthread_mutex_unlock(&philo->self_mutex);
-	print_state(philo, "eating");
+	print_state(philo, "is eating", GREEN);
 	philo_wait(philo->table, philo->table->time_to_eat);
 	unlock_forks(philo);
 }
@@ -53,7 +53,7 @@ static void	philo_sleep(t_philo *philo)
 	pthread_mutex_lock(&philo->self_mutex);
 	philo->state = SLEEPING;
 	pthread_mutex_unlock(&philo->self_mutex);
-	print_state(philo, "sleeping");
+	print_state(philo, "is sleeping", YELLOW);
 	philo_wait(philo->table, philo->table->time_to_sleep);
 }
 
@@ -64,7 +64,7 @@ void	*philo_life(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->table->num_philo == 1)
 	{
-		print_state(philo, "thinking");
+		print_state(philo, "is thinking", PINK);
 		philo_wait(philo->table, philo->table->time_to_die + 10);
 	}
 	philo->left_fork = philo->idx;

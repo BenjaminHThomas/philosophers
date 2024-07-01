@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   messages.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:17:50 by bento             #+#    #+#             */
-/*   Updated: 2024/07/01 08:19:42 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:36:20 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	ft_errmsg(const char *s)
 	return (0);
 }
 
-void	print_state(t_philo *philo, char *status)
+void	print_state(t_philo *philo, char *status, char *colour)
 {
 	if (!is_stopped(philo->table))
-		printf("%ld %d is %s\n", get_timestamp(philo->table),
+		printf("%s %ld %d %s\n", colour, get_timestamp(philo->table),
 			philo->idx + 1, status);
 }

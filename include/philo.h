@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/07/01 08:27:06 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:32:21 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void			*philo_life(void *philo_data);
 int				is_finished(t_table *data, int idx);
 int				all_finished(t_table *data);
 void			philo_wait(t_table *data, unsigned int msecs);
-void			print_state(t_philo *philo, char *status);
+void			print_state(t_philo *philo, char *status, char *colour);
 void			lock_forks(t_philo *philo);
 void			unlock_forks(t_philo *philo);
 int				ft_errmsg(const char *s);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
+/*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/07/01 08:30:31 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 10:35:59 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ bool	is_dead(t_philo *philo)
 	{
 		if (!is_stopped(philo->table))
 		{
-			printf("%s",RED);
-			printf("%ld %d is dead\n", curr_time, philo->idx + 1);
+			print_state(philo, "is dead", RED);
 			signal_stop(philo->table);
 		}
 		return (1);
@@ -58,16 +57,16 @@ void	lock_forks(t_philo *philo)
 	if (philo->idx % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-		print_state(philo, "has taken left fork");
+		print_state(philo, "has taken left fork", BLUE);
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
-		print_state(philo, "has taken right fork");
+		print_state(philo, "has taken right fork", BLUE);
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
-		print_state(philo, "has taken right fork");
+		print_state(philo, "has taken right fork", BLUE);
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
-		print_state(philo, "has taken left fork");
+		print_state(philo, "has taken left fork", BLUE);
 	}
 }
 
