@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/30 09:16:03 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:19:54 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void			unlock_forks(t_philo *philo);
 int				ft_errmsg(const char *s);
 bool			is_dead(t_philo *philo);
 void			*hangman(void *arg);
+bool			is_stopped(t_table *data);
 
 #endif

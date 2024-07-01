@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/30 09:16:38 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:18:22 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,16 @@ void	lock_forks(t_philo *philo)
 	if (philo->idx % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		print_state(philo, "has taken left fork");
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		print_state(philo, "has taken right fork");
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->table->forks[philo->right_fork]);
+		print_state(philo, "has taken right fork");
 		pthread_mutex_lock(&philo->table->forks[philo->left_fork]);
+		print_state(philo, "has taken left fork");
 	}
 }
 

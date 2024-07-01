@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:17:50 by bento             #+#    #+#             */
-/*   Updated: 2024/06/30 09:16:12 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:19:42 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_errmsg(const char *s)
 
 void	print_state(t_philo *philo, char *status)
 {
-	printf("%ld %d is %s\n", get_timestamp(philo->table),
-		philo->idx + 1, status);
+	if (!is_stopped(philo->table))
+		printf("%ld %d is %s\n", get_timestamp(philo->table),
+			philo->idx + 1, status);
 }

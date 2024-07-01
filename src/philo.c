@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:43:57 by bthomas           #+#    #+#             */
-/*   Updated: 2024/06/30 09:06:35 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:23:32 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void	*philo_life(void *arg)
 	if (philo->table->num_philo == 1)
 	{
 		print_state(philo, "thinking");
-		philo_wait(philo->table, philo->table->time_to_die);
-		is_dead(philo);
+		philo_wait(philo->table, philo->table->time_to_die + 10);
 	}
 	philo->left_fork = philo->idx;
 	philo->right_fork = (philo->idx + 1) % philo->table->num_philo;
