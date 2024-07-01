@@ -6,7 +6,7 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:02:20 by bthomas           #+#    #+#             */
-/*   Updated: 2024/07/01 08:18:22 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:30:31 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ bool	is_dead(t_philo *philo)
 	{
 		if (!is_stopped(philo->table))
 		{
+			printf("%s",RED);
 			printf("%ld %d is dead\n", curr_time, philo->idx + 1);
 			signal_stop(philo->table);
 		}

@@ -6,13 +6,19 @@
 /*   By: bento <bento@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 14:49:52 by bthomas           #+#    #+#             */
-/*   Updated: 2024/07/01 08:19:54 by bento            ###   ########.fr       */
+/*   Updated: 2024/07/01 08:27:06 by bento            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# define BLUE "\x1B[34m"
+# define YELLOW "\x1B[33m"
+# define RED "\x1B[31m"
+# define GREEN "\x1B[32m"
+# define RESET "\x1B[0m"
+# define PINK "\x1B[95m"
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
